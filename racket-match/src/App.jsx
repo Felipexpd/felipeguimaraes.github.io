@@ -42,60 +42,58 @@ export default function App() {
     : false
 
   return (
-    <div id="root">
-      <div className="app-shell">
-        <AnimatePresence mode="wait">
-          {screen === 'splash' && (
-            <motion.div
-              key="splash"
-              className="absolute inset-0"
-              exit={{ y: '-100%', transition: { duration: 0.4, ease: 'easeInOut' } }}
-            >
-              <SplashScreen onStart={handleStart} />
-            </motion.div>
-          )}
+    <div className="app-shell">
+      <AnimatePresence mode="wait">
+        {screen === 'splash' && (
+          <motion.div
+            key="splash"
+            className="absolute inset-0"
+            exit={{ y: '-100%', transition: { duration: 0.4, ease: 'easeInOut' } }}
+          >
+            <SplashScreen onStart={handleStart} />
+          </motion.div>
+        )}
 
-          {screen === 'swipe' && (
-            <motion.div
-              key="swipe"
-              className="absolute inset-0"
-              initial={{ y: '100%' }}
-              animate={{ y: 0 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.4, ease: 'easeOut' }}
-            >
-              <SwipeScreen
-                key={swipeIndex}
-                startIndex={swipeIndex}
-                onMatch={handleMatch}
-                onEnd={handleEnd}
-              />
-              <AnimatePresence>
-                {showMatch && matchedRacket && (
-                  <MatchScreen
-                    key={`match-${matchedRacket.id}`}
-                    racket={matchedRacket}
-                    onContinue={handleContinueFromMatch}
-                    hasMore={hasMore}
-                  />
-                )}
-              </AnimatePresence>
-            </motion.div>
-          )}
+        {screen === 'swipe' && (
+          <motion.div
+            key="swipe"
+            className="absolute inset-0"
+            initial={{ y: '100%' }}
+            animate={{ y: 0 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.4, ease: 'easeOut' }}
+          >
+            <SwipeScreen
+              key={swipeIndex}
+              startIndex={swipeIndex}
+              onMatch={handleMatch}
+              onEnd={handleEnd}
+            />
+            <AnimatePresence>
+              {showMatch && matchedRacket && (
+                <MatchScreen
+                  key={`match-${matchedRacket.id}`}
+                  racket={matchedRacket}
+                  onContinue={handleContinueFromMatch}
+                  hasMore={hasMore}
+                />
+              )}
+            </AnimatePresence>
+          </motion.div>
+        )}
 
-          {screen === 'end' && (
-            <motion.div
-              key="end"
-              className="absolute inset-0"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.5 }}
-            >
-              <EndScreen />
-            </motion.div>
-          )}
-        </AnimatePresence>
-      </div>
+        {screen === 'end' && (
+          <motion.div
+            key="end"
+            className="absolute inset-0"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.5 }}
+          >
+            <EndScreen />
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   )
 }
